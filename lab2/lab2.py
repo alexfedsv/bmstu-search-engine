@@ -105,11 +105,13 @@ print('Создание собственных правил:')
 from yargy import Parser, rule
 from yargy.predicates import gram, dictionary
 print('---------R_1----------')
+# R_1 содержит правило для извлечения прилагательных, связанных с определенными терминами, такими как "символика", "языки", "цифры" и другие
 R_1 = rule(gram('ADJF'), dictionary({'символике', 'языки', 'цифр', 'букв', 'символов', 'системами'}))
 parser = Parser(R_1)
 for match in parser.findall(text):
     print([x.value for x in match.tokens])
 print('---------R_2----------')
+# R_2 и R_3 пытается найти места связанные с деятельностью аббата
 R_2 = rule(gram('VERB'), dictionary({'Домене', 'аббат'}))
 parser = Parser(R_2)
 for match in parser.findall(text):
@@ -120,6 +122,7 @@ parser = Parser(R_3)
 for match in parser.findall(text):
     print([x.value for x in match.tokens])
 print('---------R_4----------')
+# R_4 ищет сравниваемые сущности
 R_4 = rule(gram('ADJF').optional(), gram('NOUN'), gram('CONJ'), gram('ADJF').optional(), gram('NOUN'))
 parser = Parser(R_4)
 for match in parser.findall(text):
